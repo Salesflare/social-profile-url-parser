@@ -1,0 +1,46 @@
+{
+  "name": "@salesflare/social-profile-url-parser",
+  "version": "0.0.1",
+  "description": "Node library to parse social profile urls out of text.",
+  "main": "lib/index.js",
+  "scripts": {
+    "lint": "eslint --fix .",
+    "test": "lab -a code -t 100"
+  },
+  "engines": {
+    "node": ">8.15.0"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run lint && npm t"
+    }
+  },
+  "devDependencies": {
+    "code": "^5.2.4",
+    "eslint-config-salesflare": "^1.2.1",
+    "eslint-plugin-dependencies": "^2.4.0",
+    "eslint-plugin-node": "^8.0.1",
+    "ghooks": "^2.0.4",
+    "lab": "^18.0.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Salesflare/social-profile-url-parser.git"
+  },
+  "keywords": [
+    "node",
+    "social",
+    "profile",
+    "url",
+    "parser"
+  ],
+  "author": "Salesflare Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Salesflare/social-profile-url-parser/issues"
+  },
+  "homepage": "https://github.com/Salesflare/social-profile-url-parser#readme",
+  "files": [
+    "."
+  ]
+}
