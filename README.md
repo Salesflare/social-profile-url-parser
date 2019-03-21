@@ -1,5 +1,7 @@
 # social-profile-url-parser
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Salesflare/social-profile-url-parser.svg)](https://greenkeeper.io/)
+
 Node library to parse social profile urls out of text.
 
 ```js
