@@ -49,6 +49,8 @@ describe('url parser', () => {
 
             ±    https://medium.com/@salesflare-at
             ±    https://medium.com/salesflare
+
+            ±    https://digg.com/users/salesflare
        `;
         const AMOUNT_OF_PROFILES = testText.match(/±/g).length;
 
@@ -56,131 +58,163 @@ describe('url parser', () => {
         expect(result).to.equal([
             {
                 type: 'angellist',
-                username: 'slack',
-                url: 'https://angel.co/slack'
+                type_name: 'AngelList',
+                url: 'https://angel.co/slack',
+                username: 'slack'
             },
             {
                 type: 'crunchbase',
+                type_name: 'CrunchBase',
                 url: 'http://www.crunchbase.com/organization/slack',
                 username: 'slack'
             },
             {
                 type: 'crunchbase',
+                type_name: 'CrunchBase',
                 url: 'http://www.crunchbase.com/company/tiny-speck',
                 username: 'tiny-speck'
             },
             {
                 type: 'crunchbase',
+                type_name: 'CrunchBase',
                 url: 'http://www.crunchbase.com/person/slackcrunchperson',
                 username: 'slackcrunchperson'
             },
             {
-                type: 'facebook',
-                username: 'slackhq',
-                url: 'https://www.facebook.com/slackhq'
+                type: 'digg',
+                type_name: 'other',
+                url: 'https://digg.com/users/salesflare',
+                username: 'salesflare'
             },
             {
                 type: 'facebook',
+                type_name: 'Facebook',
+                url: 'https://www.facebook.com/slackhq',
+                username: 'slackhq'
+            },
+            {
+                type: 'facebook',
+                type_name: 'Facebook',
                 url: 'https://nl-nl.facebook.com/slacklocalized',
                 username: 'slacklocalized'
             },
             {
                 type: 'klout',
-                username: 'SlackHQ',
-                url: 'http://klout.com/SlackHQ'
+                type_name: 'Klout',
+                url: 'http://klout.com/SlackHQ',
+                username: 'SlackHQ'
             },
             {
                 type: 'klout',
+                type_name: 'Klout',
                 url: 'http://klout.com/SlackLoveTweets',
                 username: 'SlackLoveTweets'
             },
             {
                 type: 'linkedin',
+                type_name: 'LinkedIn',
                 url: 'https://www.linkedin.com/in/defaultlinkedin',
                 username: 'defaultlinkedin'
             },
             {
                 type: 'linkedin',
+                type_name: 'LinkedIn',
                 url: 'https://www.linkedin.com/company/tiny-speck-inc',
                 username: 'tiny-speck-inc'
             },
             {
                 type: 'linkedin',
+                type_name: 'LinkedIn',
                 url: 'https://www.linkedin.com/school/linkedinschool',
                 username: 'linkedinschool'
             },
             {
                 type: 'linkedin',
+                type_name: 'LinkedIn',
                 url: 'https://www.linkedin.com/edu/linkedinedu',
                 username: 'linkedinedu'
             },
             {
                 type: 'linkedin',
+                type_name: 'LinkedIn',
                 url: 'https://www.linkedin.com/sales/people/salespeoplelinkedin',
                 username: 'salespeoplelinkedin'
             },
             {
-                'type': 'linkedin',
-                'url': 'https://www.linkedin.com/profile/view?id=AAkAAAAUPBYBUvwhRxT8bCEs3ZtRallalala',
-                'username': 'AkAAAAUPBYBUvwhRxT8bCEs3ZtRallalala'
+                type: 'linkedin',
+                type_name: 'LinkedIn',
+                url: 'https://www.linkedin.com/profile/view?id=AAkAAAAUPBYBUvwhRxT8bCEs3ZtRallalala',
+                username: 'AkAAAAUPBYBUvwhRxT8bCEs3ZtRallalala'
             },
             {
                 type: 'medium',
+                type_name: 'Medium',
                 url: 'https://medium.com/@salesflare-at',
                 username: 'salesflare-at'
             },
             {
                 type: 'medium',
+                type_name: 'Medium',
                 url: 'https://medium.com/salesflare',
                 username: 'salesflare'
             },
             {
                 type: 'twitter',
-                username: 'SlackHQ',
-                url: 'https://twitter.com/SlackHQ'
+                type_name: 'Twitter',
+                url: 'https://twitter.com/SlackHQ',
+                username: 'SlackHQ'
             },
             {
                 type: 'twitter',
+                type_name: 'Twitter',
                 url: 'https://twitter.com/SlackLoveTweets',
                 username: 'SlackLoveTweets'
             },
             {
                 type: 'twitter',
+                type_name: 'Twitter',
                 url: 'https://mobile.twitter.com/mobiletwitter',
                 username: 'mobiletwitter'
             },
             {
                 type: 'yahoo',
+                type_name: 'Yahoo',
                 url: 'https://local.yahoo.com/josl',
                 username: 'josl'
             },
             {
                 type: 'yahoo',
+                type_name: 'Yahoo',
                 url: 'https://profile.yahoo.com/josp',
                 username: 'josp'
             },
             {
                 type: 'yahoo',
+                type_name: 'Yahoo',
                 url: 'https://me.yahoo.com/josm',
                 username: 'josm'
             },
             {
                 type: 'youtube',
+                type_name: 'YouTube',
                 url: 'https://youtube.com/channel/UCY3YECgeBcLCzIrFLP4gblw',
                 username: 'UCY3YECgeBcLCzIrFLP4gblw'
             },
             {
-                'type': 'youtube',
-                'url': 'https://youtube.com/c/UCY3YECgeBcLCzIrFLP4gblc',
-                'username': 'UCY3YECgeBcLCzIrFLP4gblc'
-            },
-            {
-                'type': 'youtube',
-                'url': 'https://youtube.com/user/UCY3YECgeBcLCzIrFLP4user',
-                'username': 'UCY3YECgeBcLCzIrFLP4user'
+                type: 'youtube',
+                type_name: 'YouTube',
+                url: 'https://youtube.com/c/UCY3YECgeBcLCzIrFLP4gblc',
+                username: 'UCY3YECgeBcLCzIrFLP4gblc'
             },
             {
                 type: 'youtube',
+                type_name: 'YouTube',
+                url: 'https://youtube.com/user/UCY3YECgeBcLCzIrFLP4user',
+                username: 'UCY3YECgeBcLCzIrFLP4user'
+            },
+            {
+                type: 'youtube',
+                type_name: 'YouTube',
                 url: 'https://youtube.com/justchannelname',
                 username: 'justchannelname'
             }
