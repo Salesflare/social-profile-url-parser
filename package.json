@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "code": "^5.2.4",
-    "eslint-config-salesflare": "^1.2.1",
+    "eslint-config-salesflare": "^2.0.0",
     "eslint-plugin-dependencies": "^2.4.0",
     "eslint-plugin-node": "^8.0.1",
     "ghooks": "^2.0.4",
