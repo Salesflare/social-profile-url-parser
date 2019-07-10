@@ -3,7 +3,7 @@ module.exports = {
         es6: true,
         node: true
     },
-    plugins: ['node', 'dependencies'],
+    plugins: ['node'],
     extends: ['plugin:node/recommended', 'eslint-config-salesflare'],
     rules: {}
 };

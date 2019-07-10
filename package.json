@@ -5,10 +5,10 @@
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint --fix .",
-    "test": "lab -a code -t 100"
+    "test": "lab -a @hapi/code -t 100"
   },
   "engines": {
-    "node": ">8.15.0"
+    "node": ">8.16.0"
   },
   "config": {
     "ghooks": {
@@ -16,12 +16,12 @@
     }
   },
   "devDependencies": {
-    "code": "^5.2.4",
-    "eslint-config-salesflare": "^1.2.1",
-    "eslint-plugin-dependencies": "^2.4.0",
-    "eslint-plugin-node": "^8.0.1",
-    "ghooks": "^2.0.4",
-    "lab": "^18.0.2"
+    "@hapi/code": "^5.3.1",
+    "@hapi/lab": "^19.1.0",
+    "eslint": "^6.0.1",
+    "eslint-config-salesflare": "^2.0.0",
+    "eslint-plugin-node": "^9.1.0",
+    "ghooks": "^2.0.4"
   },
   "repository": {
     "type": "git",
