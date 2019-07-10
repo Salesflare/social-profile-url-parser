@@ -11,7 +11,6 @@ const SocialProfileUrlParser = require('..');
 describe('url parser', () => {
 
     it('finds social profiles', () => {
-
         // Prefix lines needed to matched with ± so we can test the amount of results expected
         const testText = `
             ±    SlackHQ	klout	http://klout.com/SlackHQ
@@ -22,6 +21,10 @@ describe('url parser', () => {
             ±    tiny-speck	crunchbasecompany	http://www.crunchbase.com/person/slackcrunchperson
 
             ±    slack	angellist	https://angel.co/slack
+            
+            ±    https://ok.ru/profile/55212321312
+            
+            ±    https://vk.com/csdwer96123
 
             ±    SlackHQ	twitter	https://twitter.com/SlackHQ
             ±    SlackLoveTweets	twitter	https://twitter.com/SlackLoveTweets
@@ -159,6 +162,12 @@ describe('url parser', () => {
                 username: 'salesflare'
             },
             {
+                type: 'ok',
+                type_name: 'Odnoklassniki',
+                url: 'https://ok.ru/profile/55212321312',
+                username: '55212321312'
+            },
+            {
                 type: 'twitter',
                 type_name: 'Twitter',
                 url: 'https://twitter.com/SlackHQ',
@@ -175,6 +184,12 @@ describe('url parser', () => {
                 type_name: 'Twitter',
                 url: 'https://mobile.twitter.com/mobiletwitter',
                 username: 'mobiletwitter'
+            },
+            {
+                type: 'vk',
+                type_name: 'VK',
+                url: 'https://vk.com/csdwer96123',
+                username: 'csdwer96123'
             },
             {
                 type: 'yahoo',
