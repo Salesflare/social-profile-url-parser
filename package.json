@@ -19,7 +19,7 @@
     "@hapi/code": "^6.0.0",
     "@hapi/lab": "^20.2.1",
     "eslint": "^6.2.2",
-    "eslint-config-salesflare": "^2.0.1",
+    "eslint-config-salesflare": "^3.0.0",
     "eslint-plugin-node": "^9.2.0",
     "ghooks": "^2.0.4"
   },
