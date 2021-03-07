@@ -8,7 +8,7 @@
     "test": "lab -a @hapi/code -t 100"
   },
   "engines": {
-    "node": ">=12.16.0"
+    "node": ">=14.16.0"
   },
   "config": {
     "ghooks": {
@@ -16,10 +16,10 @@
     }
   },
   "devDependencies": {
-    "@hapi/code": "^8.0.1",
-    "@hapi/lab": "^22.0.4",
-    "eslint": "^6.8.0",
-    "eslint-config-salesflare": "^3.0.2",
+    "@hapi/code": "^8.0.2",
+    "@hapi/lab": "^24.1.1",
+    "eslint": "^7.21.0",
+    "eslint-config-salesflare": "^4.6.0",
     "eslint-plugin-node": "^11.1.0",
     "ghooks": "^2.0.4"
   },
