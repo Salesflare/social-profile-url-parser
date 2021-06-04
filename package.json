@@ -16,9 +16,9 @@
     }
   },
   "devDependencies": {
-    "@hapi/code": "^8.0.2",
-    "@hapi/lab": "^24.1.1",
-    "eslint": "^7.21.0",
+    "@hapi/code": "^8.0.3",
+    "@hapi/lab": "^24.2.1",
+    "eslint": "^7.27.0",
     "eslint-config-salesflare": "^4.6.0",
     "eslint-plugin-node": "^11.1.0",
     "ghooks": "^2.0.4"
