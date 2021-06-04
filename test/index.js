@@ -13,17 +13,17 @@ describe('url parser', () => {
     it('finds social profiles', () => {
         // Prefix lines needed to matched with ± so we can test the amount of results expected
         const testText = `
-            ±    SlackHQ	klout	http://klout.com/SlackHQ
-            ±    SlackLoveTweets	klout	http://klout.com/SlackLoveTweets
+                 SlackHQ	klout	http://klout.com/SlackHQ
+                 SlackLoveTweets	klout	http://klout.com/SlackLoveTweets
 
             ±    slack	crunchbasecompany	http://www.crunchbase.com/organization/slack
             ±    tiny-speck	crunchbasecompany	http://www.crunchbase.com/company/tiny-speck
             ±    tiny-speck	crunchbasecompany	http://www.crunchbase.com/person/slackcrunchperson
 
             ±    slack	angellist	https://angel.co/slack
-            
+
             ±    https://ok.ru/profile/55212321312
-            
+
             ±    https://vk.com/csdwer96123
 
             ±    SlackHQ	twitter	https://twitter.com/SlackHQ
@@ -100,18 +100,6 @@ describe('url parser', () => {
                 type_name: 'Facebook',
                 url: 'https://nl-nl.facebook.com/slacklocalized',
                 username: 'slacklocalized'
-            },
-            {
-                type: 'klout',
-                type_name: 'Klout',
-                url: 'http://klout.com/SlackHQ',
-                username: 'SlackHQ'
-            },
-            {
-                type: 'klout',
-                type_name: 'Klout',
-                url: 'http://klout.com/SlackLoveTweets',
-                username: 'SlackLoveTweets'
             },
             {
                 type: 'linkedin',
