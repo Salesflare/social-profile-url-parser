@@ -31,6 +31,7 @@ describe('url parser', () => {
             ±    SlackLoveTweets	twitter	https://mobile.twitter.com/mobiletwitter
 
             ±    slackhq	facebook	https://www.facebook.com/slackhq
+            ±    slackhq2	facebook	https://www.facebook.com/slackhq2"
             ±    https://nl-nl.facebook.com/slacklocalized
 
             ±    tiny-speck-inc	linkedincompany	https://www.linkedin.com/in/defaultlinkedin
@@ -94,6 +95,12 @@ describe('url parser', () => {
                 type_name: 'Facebook',
                 url: 'https://www.facebook.com/slackhq',
                 username: 'slackhq'
+            },
+            {
+                type: 'facebook',
+                type_name: 'Facebook',
+                url: 'https://www.facebook.com/slackhq2',
+                username: 'slackhq2'
             },
             {
                 type: 'facebook',
