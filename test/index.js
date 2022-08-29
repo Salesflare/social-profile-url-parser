@@ -51,6 +51,10 @@ describe('url parser', () => {
             ±    https://profile.yahoo.com/josp
             ±    https://me.yahoo.com/josm
 
+            ±    https://www.yelp.com/biz/1-2-3-and-me-child-development-center-2-jacksonville
+            ±    https://fr.yelp.be/biz/wooly-waterloo
+            
+
             ±    https://medium.com/@salesflare-at
             ±    https://medium.com/salesflare
 
@@ -203,6 +207,18 @@ describe('url parser', () => {
                 type_name: 'Yahoo',
                 url: 'https://me.yahoo.com/josm',
                 username: 'josm'
+            },
+            {
+                type: 'yelp',
+                type_name: 'Yelp',
+                url: 'https://www.yelp.com/biz/1-2-3-and-me-child-development-center-2-jacksonville',
+                username: '1-2-3-and-me-child-development-center-2-jacksonville'
+            },
+            {
+                type: 'yelp',
+                type_name: 'Yelp',
+                url: 'https://fr.yelp.be/biz/wooly-waterloo',
+                username: 'wooly-waterloo'
             },
             {
                 type: 'youtube',
