@@ -1,6 +1,6 @@
 {
   "name": "@salesflare/social-profile-url-parser",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Node library to parse social profile urls out of text.",
   "main": "lib/index.js",
   "scripts": {
