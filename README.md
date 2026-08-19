@@ -50,7 +50,7 @@ under [Supported types](#supported-types) rather than the order they appear in t
 | `type` | yes | The platform, one of the keys under [Supported types](#supported-types) |
 | `type_name` | yes | The platform's display name, for example `LinkedIn` |
 | `id` | yes | The identifying part of the url |
-| `url` | yes | The url exactly as it appeared in the text |
+| `url` | yes | The url as it appeared in the text |
 | `kind` | no | What the url points at, see [kind](#kind) |
 | `canonical_url` | no | The profile in one agreed upon form, see [canonical_url](#canonical_url) |
 
@@ -58,11 +58,19 @@ under [Supported types](#supported-types) rather than the order they appear in t
 Tumblr and WordPress, an opaque or numeric id for Blogger, VK, Odnoklassniki and LinkedIn's legacy
 urls, and the business slug for Yelp. It is returned as it was written, so casing is preserved.
 
-`url` is left untouched on purpose, protocol, subdomain, path and all, so you can always show or
-store what was actually written. Use `canonical_url` when you want to compare two urls.
+`id` holds only the identifying part, so a query string and a fragment are left off:
+`facebook.com/slackhq?lang=en` has an `id` of `slackhq`. The one exception is LinkedIn's
+`profile/view?id=` urls, where the id is what follows the `?` rather than what precedes it.
+
+`url` keeps the protocol, subdomain, path, query string and fragment that were written, so you can
+always show or store the url as it was found. The only thing dropped is punctuation that closed the
+sentence around it, so a url written as `(https://x.com/salesflare).` does not come back carrying
+`).`. Use `canonical_url` when you want to compare two urls.
 
 Results are de-duplicated on `type` plus `id`. A profile that appears twice in the same text
-written two different ways collapses into one entry, holding the last `url` seen.
+written two different ways collapses into one entry, holding the last `url` seen. Since the query
+string is not part of `id`, `facebook.com/slackhq` and `facebook.com/slackhq?lang=en` count as the
+same profile.
 
 ### Deprecated: `username`
 

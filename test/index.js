@@ -355,4 +355,75 @@ describe('url parser', () => {
         expect(result.map((profile) => profile.username)).to.equal(result.map((profile) => profile.id));
         expect(result.length).to.equal(AMOUNT_OF_PROFILES);
     });
+
+    it('keeps query strings, fragments and sentence punctuation out of the id', () => {
+
+        const testText = `
+            https://www.facebook.com/slackhq?lang=en
+            https://instagram.com/salesflare#bio,
+            have a look at (https://x.com/salesflare)
+            or at https://github.com/salesflare.
+            <a href=https://keybase.io/salesflare>
+        `;
+
+        const result = SocialProfileUrlParser.parse(testText);
+
+        expect(result.map(({ username, ...profile }) => profile)).to.equal([ //eslint-disable-line no-unused-vars
+            {
+                canonical_url: 'https://facebook.com/slackhq',
+                type: 'facebook',
+                type_name: 'Facebook',
+                url: 'https://www.facebook.com/slackhq?lang=en',
+                id: 'slackhq'
+            },
+            {
+                canonical_url: 'https://github.com/salesflare',
+                type: 'github',
+                type_name: 'GitHub',
+                url: 'https://github.com/salesflare',
+                id: 'salesflare'
+            },
+            {
+                canonical_url: 'https://instagram.com/salesflare',
+                type: 'instagram',
+                type_name: 'Instagram',
+                url: 'https://instagram.com/salesflare#bio',
+                id: 'salesflare'
+            },
+            {
+                canonical_url: 'https://keybase.io/salesflare',
+                type: 'keybase',
+                type_name: 'Keybase',
+                url: 'https://keybase.io/salesflare',
+                id: 'salesflare'
+            },
+            {
+                canonical_url: 'https://x.com/salesflare',
+                type: 'twitter',
+                type_name: 'Twitter',
+                url: 'https://x.com/salesflare',
+                id: 'salesflare'
+            }
+        ]);
+    });
+
+    it('de-duplicates the same profile written with and without a query string', () => {
+
+        const result = SocialProfileUrlParser.parse('https://www.facebook.com/slackhq?lang=en https://www.facebook.com/slackhq');
+
+        expect(result).to.have.length(1);
+        expect(result[0].url).to.equal('https://www.facebook.com/slackhq');
+    });
+
+    it('leaves a legacy LinkedIn id alone, its `?` belongs to the path', () => {
+
+        const result = SocialProfileUrlParser.parse('https://www.linkedin.com/profile/view?id=AAkAAAAUPBYBUvwhRxT8bCEs3ZtRallalala');
+
+        expect(result[0].id).to.equal('AAkAAAAUPBYBUvwhRxT8bCEs3ZtRallalala');
+    });
+
+    it('ignores a url that has no id left once normalized', () => {
+
+        expect(SocialProfileUrlParser.parse('https://github.com/?ref=salesflare')).to.equal([]);
+    });
 });
