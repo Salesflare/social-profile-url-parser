@@ -67,10 +67,17 @@ always show or store the url as it was found. The only thing dropped is punctuat
 sentence around it, so a url written as `(https://x.com/salesflare).` does not come back carrying
 `).`. Use `canonical_url` when you want to compare two urls.
 
-Results are de-duplicated on `type` plus `id`. A profile that appears twice in the same text
-written two different ways collapses into one entry, holding the last `url` seen. Since the query
-string is not part of `id`, `facebook.com/slackhq` and `facebook.com/slackhq?lang=en` count as the
-same profile.
+Results are de-duplicated on `type`, the [kind](#kind) where the platform has one, and `id`. A
+profile that appears twice in the same text written two different ways collapses into one entry,
+holding the last `url` seen. Since the query string is not part of `id`, `facebook.com/slackhq` and
+`facebook.com/slackhq?lang=en` count as the same profile.
+
+`kind` is part of the identity because an `id` is only unique within the namespace it was written
+in, so a person and a company can share one. `linkedin.com/in/foo` and `linkedin.com/company/foo`
+stay two entries: they are two different things that happen to have the same slug. What still
+collapses is the several wordings a platform has for one kind, since those report the same `kind`:
+`linkedin.com/company/foo`, `linkedin.com/organization/foo` and `linkedin.com/companies/foo` are one
+company.
 
 ### Deprecated: `username`
 

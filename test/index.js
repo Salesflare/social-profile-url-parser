@@ -426,4 +426,76 @@ describe('url parser', () => {
 
         expect(SocialProfileUrlParser.parse('https://github.com/?ref=salesflare')).to.equal([]);
     });
+
+    describe('de-duplication across kinds', () => {
+
+        it('keeps a LinkedIn person and a company that share a slug apart', () => {
+
+            const result = SocialProfileUrlParser.parse('https://linkedin.com/in/foo https://linkedin.com/company/foo');
+
+            expect(result).to.have.length(2);
+            expect(result.map((profile) => profile.kind).sort()).to.equal(['company', 'person']);
+            expect(result.map((profile) => profile.id)).to.equal(['foo', 'foo']);
+        });
+
+        it('keeps a LinkedIn school and a company that share a slug apart', () => {
+
+            const result = SocialProfileUrlParser.parse('https://linkedin.com/school/foo https://linkedin.com/company/foo');
+
+            expect(result).to.have.length(2);
+            expect(result.map((profile) => profile.kind).sort()).to.equal(['company', 'school']);
+        });
+
+        it('collapses the interchangeable LinkedIn company urls onto one profile', () => {
+
+            const result = SocialProfileUrlParser.parse('https://linkedin.com/company/foo https://linkedin.com/organization/foo https://linkedin.com/companies/foo');
+
+            expect(result).to.have.length(1);
+            expect(result[0].kind).to.equal('company');
+            expect(result[0].canonical_url).to.equal('https://linkedin.com/company/foo');
+        });
+
+        it('keeps a Crunchbase person and a company that share a slug apart', () => {
+
+            const result = SocialProfileUrlParser.parse('https://crunchbase.com/person/foo https://crunchbase.com/organization/foo');
+
+            expect(result).to.have.length(2);
+            expect(result.map((profile) => profile.kind).sort()).to.equal(['company', 'person']);
+        });
+
+        it('collapses the interchangeable Crunchbase company urls onto one profile', () => {
+
+            const result = SocialProfileUrlParser.parse('https://crunchbase.com/company/foo https://crunchbase.com/organization/foo');
+
+            expect(result).to.have.length(1);
+            expect(result[0].kind).to.equal('company');
+            expect(result[0].canonical_url).to.equal('https://crunchbase.com/organization/foo');
+        });
+
+        it('keeps a Flickr person and a group that share a slug apart', () => {
+
+            const result = SocialProfileUrlParser.parse('https://flickr.com/people/foo https://flickr.com/groups/foo');
+
+            expect(result).to.have.length(2);
+            expect(result.map((profile) => profile.kind).sort()).to.equal(['group', 'person']);
+        });
+
+        it('collapses a Flickr photostream onto the person behind it', () => {
+
+            const result = SocialProfileUrlParser.parse('https://flickr.com/photos/foo https://flickr.com/people/foo');
+
+            expect(result).to.have.length(1);
+            expect(result[0].kind).to.equal('person');
+            expect(result[0].canonical_url).to.equal('https://flickr.com/people/foo');
+        });
+
+        it('keeps a Facebook page and a group that share a slug apart', () => {
+
+            const result = SocialProfileUrlParser.parse('https://facebook.com/foo https://facebook.com/groups/foo');
+
+            expect(result).to.have.length(2);
+            expect(result.map((profile) => profile.kind)).to.equal([undefined, 'group']);
+            expect(result.map((profile) => profile.id)).to.equal(['foo', 'foo']);
+        });
+    });
 });
