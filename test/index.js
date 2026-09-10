@@ -427,6 +427,81 @@ describe('url parser', () => {
         expect(SocialProfileUrlParser.parse('https://github.com/?ref=salesflare')).to.equal([]);
     });
 
+    describe('Facebook legacy page urls', () => {
+
+        it('takes the numeric page id out of a `/pages/{slug}/{id}` url', () => {
+
+            const result = SocialProfileUrlParser.parse('https://www.facebook.com/pages/prudential-borrowing-llc/180657555296533');
+
+            // No `kind`, a page is not necessarily a company. The canonical url is built from the
+            // numeric id, not from the slug, which is not the page's vanity name
+            expect(result).to.equal([
+                {
+                    type: 'facebook',
+                    type_name: 'Facebook',
+                    id: '180657555296533',
+                    username: '180657555296533',
+                    url: 'https://www.facebook.com/pages/prudential-borrowing-llc/180657555296533',
+                    canonical_url: 'https://facebook.com/180657555296533'
+                }
+            ]);
+        });
+
+        it('collapses a legacy page url and the numeric root url onto one profile', () => {
+
+            const result = SocialProfileUrlParser.parse('https://www.facebook.com/pages/prudential-borrowing-llc/180657555296533 https://facebook.com/180657555296533');
+
+            expect(result).to.have.length(1);
+            expect(result[0].canonical_url).to.equal('https://facebook.com/180657555296533');
+        });
+
+        it('accepts the localized subdomain and the fb.com host', () => {
+
+            const result = SocialProfileUrlParser.parse('https://nl-nl.facebook.com/pages/Prudential-Borrowing-LLC/180657555296533 https://fb.com/pages/salesflare/987654321');
+
+            expect(result.map((profile) => profile.id)).to.equal(['180657555296533', '987654321']);
+            expect(result.map((profile) => profile.canonical_url)).to.equal(['https://facebook.com/180657555296533', 'https://facebook.com/987654321']);
+            expect(result.map((profile) => profile.url)).to.equal([
+                'https://nl-nl.facebook.com/pages/Prudential-Borrowing-LLC/180657555296533',
+                'https://fb.com/pages/salesflare/987654321'
+            ]);
+        });
+
+        it('keeps a query string, a trailing path and sentence punctuation out of the id', () => {
+
+            const result = SocialProfileUrlParser.parse('see (https://www.facebook.com/pages/prudential-borrowing-llc/180657555296533?ref=br_rs), or https://www.facebook.com/pages/prudential-borrowing-llc/180657555296533/about.');
+
+            expect(result).to.have.length(1);
+            expect(result[0].id).to.equal('180657555296533');
+            expect(result[0].url).to.equal('https://www.facebook.com/pages/prudential-borrowing-llc/180657555296533');
+        });
+
+        it('leaves vanity and group urls exactly as they were', () => {
+
+            const result = SocialProfileUrlParser.parse('https://www.facebook.com/salesflare https://www.facebook.com/groups/salesflareusers');
+
+            expect(result).to.equal([
+                {
+                    type: 'facebook',
+                    type_name: 'Facebook',
+                    id: 'salesflare',
+                    username: 'salesflare',
+                    url: 'https://www.facebook.com/salesflare',
+                    canonical_url: 'https://facebook.com/salesflare'
+                },
+                {
+                    type: 'facebook',
+                    type_name: 'Facebook',
+                    id: 'salesflareusers',
+                    username: 'salesflareusers',
+                    url: 'https://www.facebook.com/groups/salesflareusers',
+                    kind: 'group',
+                    canonical_url: 'https://facebook.com/groups/salesflareusers'
+                }
+            ]);
+        });
+    });
+
     describe('de-duplication across kinds', () => {
 
         it('keeps a LinkedIn person and a company that share a slug apart', () => {

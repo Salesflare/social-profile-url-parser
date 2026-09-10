@@ -99,7 +99,8 @@ own urls, so you can branch on it without knowing that a LinkedIn person lives u
 | `school` | LinkedIn `/edu/` and `/school/` |
 
 `kind` is left out for every other type, and for a Facebook url that is not a group, since a plain
-`facebook.com/name` can be either a person or a page.
+`facebook.com/name` can be either a person or a page, and a legacy `facebook.com/pages/{slug}/{id}`
+page can belong to a company, a person or anything else.
 
 ## canonical_url
 
@@ -117,6 +118,10 @@ different, or a path segment that is optional and therefore ambiguous. The secon
 `/pub/`, `/people/`, `/sales/people/` and `/profile/view?id=` urls, which carry a legacy or opaque
 member id rather than a public slug. Those still report a `kind`, so a url can tell you it is a
 person without being canonicalizable.
+
+A legacy Facebook `facebook.com/pages/{slug}/{id}` url does get one: the `id` is the numeric page id,
+which resolves at the root, so it canonicalizes to `https://facebook.com/{id}`. The slug is dropped,
+it is not the page's current vanity name.
 
 The last column of the table below says which types get one. Always check the field is present
 before using it.
@@ -137,7 +142,7 @@ also accept a country subdomain such as `au.linkedin.com` or `nl-nl.facebook.com
 | `delicious` | Delicious | `delicious.com/{id}` | yes |
 | `digg` | Digg | `digg.com/users/{id}` | yes |
 | `dribbble` | Dribbble | `dribbble.com/{id}` | yes |
-| `facebook` | Facebook | `facebook.com/{id}`, `fb.com/{id}`, `facebook.com/groups/{id}` | yes |
+| `facebook` | Facebook | `facebook.com/{id}`, `fb.com/{id}`, `facebook.com/groups/{id}`, `facebook.com/pages/{slug}/{id}` | yes |
 | `flickr` | Flickr | `flickr.com/{people,photos,groups}/{id}` | yes |
 | `foursquare` | Foursquare | `foursquare.com/{id}`, `foursquare.com/user/{id}` | no |
 | `github` | GitHub | `github.com/{id}` | yes |
